@@ -7,7 +7,7 @@
     "declarationMap": true,
     "sourceMap": true,
     "inlineSources": true,
-    "outDir": "./out/build",
+    "outDir": "./out",
     "rootDir": "./src",
     "strict": true,
     "noUnusedLocals": true,
@@ -27,7 +27,7 @@
         "strict": true
       }
     ],
-    "types": ["mocha"]
+    "types": ["mocha", "kakao.maps.d.ts"]
   },
   "include": ["src/**/*.ts"],
   "exclude": []
