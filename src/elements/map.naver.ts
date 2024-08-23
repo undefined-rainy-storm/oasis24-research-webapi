@@ -1,6 +1,12 @@
 import { LitElement, html } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
 
+declare global {
+  interface WindowEventMap {
+    'onGeoLocationUpdate': CustomEvent
+  }
+}
+
 @customElement('map-wrapper-naver')
 class MapWrapperNaver extends LitElement {
   // Lit Properties and Methods (override)
@@ -49,6 +55,11 @@ class MapWrapperNaver extends LitElement {
       center: new naver.maps.LatLng(this.lat as number, this.lng as number),
       zoom: this.zoom as number
     })
+    this.htmlElement?.addEventListener('onGeoLocationUpdate', (e: Event) => {
+      if ('detail' in e) {
+        console.log(e.detail)
+      }
+    })
   }
 
   // Custom Methods
@@ -77,7 +88,6 @@ class MapWrapperNaver extends LitElement {
     } else {
       throw new Error('This <map-wrapper> object not constructed completly: broken map object binding')
     }
-
   }
 }
 

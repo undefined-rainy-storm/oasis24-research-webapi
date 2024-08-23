@@ -1,4 +1,9 @@
 import { LitElement } from 'lit';
+declare global {
+    interface WindowEventMap {
+        'onGeoLocationUpdate': CustomEvent;
+    }
+}
 declare class MapWrapperNaver extends LitElement {
     lat: Number;
     lng: Number;

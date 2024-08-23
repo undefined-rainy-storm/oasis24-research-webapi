@@ -35,6 +35,11 @@ let MapWrapperNaver = class MapWrapperNaver extends LitElement {
                 center: new naver.maps.LatLng(this.lat, this.lng),
                 zoom: this.zoom
             });
+            this.htmlElement?.addEventListener('onGeoLocationUpdate', (e) => {
+                if ('detail' in e) {
+                    console.log(e.detail);
+                }
+            });
         };
         // Custom Methods
         /*
@@ -55,7 +60,6 @@ let MapWrapperNaver = class MapWrapperNaver extends LitElement {
                     map: this.map,
                     path: latLngs
                 });
-                console.log(paths + 'has been added.');
             }
             else {
                 throw new Error('This <map-wrapper> object not constructed completly: broken map object binding');
