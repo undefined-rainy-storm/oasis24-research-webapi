@@ -10,6 +10,7 @@ class MapWrapperNaver extends LitElement {
   map: naver.maps.Map | undefined
   draws: { [id: string]: naver.maps.Polygon } = {}
   drawsKeyGenerator: number = 0
+  htmlElement: HTMLElement | undefined
 
   static override get properties() {
     return {
@@ -41,9 +42,10 @@ class MapWrapperNaver extends LitElement {
   }
 
   override firstUpdated = () => {
-    const maoBoxElement = this.shadowRoot!.getElementById('map-box')
+    const mapBoxElement = this.shadowRoot!.getElementById('map-box')
+    if (mapBoxElement) this.htmlElement = mapBoxElement
 
-    this.map = new naver.maps.Map(maoBoxElement!, {
+    this.map = new naver.maps.Map(mapBoxElement!, {
       center: new naver.maps.LatLng(this.lat as number, this.lng as number),
       zoom: this.zoom as number
     })
@@ -63,6 +65,19 @@ class MapWrapperNaver extends LitElement {
     if (key === undefined) {
       key = new String(this.drawsKeyGenerator++)
     }
+    const latLngs: Array<naver.maps.LatLng> = []
+    for (const each of paths) {
+      latLngs.push(new naver.maps.LatLng(each[0] as number, each[1] as number))
+    }
+    if (this.map) {
+      this.draws[key as string] = new naver.maps.Polyline(
+        map: this.map,
+        path: latLngs
+      )
+    } else {
+      throw new Error('This <map-wrapper> object not constructed completly: broken map object binding')
+    }
+
   }
 }
 
