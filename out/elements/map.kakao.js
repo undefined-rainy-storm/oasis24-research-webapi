@@ -6,14 +6,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-let MapWrapper = class MapWrapper extends LitElement {
+let MapWrapperKakao = class MapWrapperKakao extends LitElement {
     constructor() {
         super(...arguments);
         this.type = 'kakao';
     }
     render() {
         return html `
-      <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=00b619a00bcee1f2b65b81fee4fb7420&libraries=services,clusterer,drawing"></script>
       <div id="map-wrapper"
         style="width: 500px; height: 500px;"
       >loading</div>
@@ -28,9 +27,9 @@ let MapWrapper = class MapWrapper extends LitElement {
 };
 __decorate([
     property()
-], MapWrapper.prototype, "type", void 0);
-MapWrapper = __decorate([
-    customElement('map-wrapper')
-], MapWrapper);
-export { MapWrapper };
-//# sourceMappingURL=map.polyfill.js.map
+], MapWrapperKakao.prototype, "type", void 0);
+MapWrapperKakao = __decorate([
+    customElement('map-wrapper-kakao')
+], MapWrapperKakao);
+export { MapWrapperKakao };
+//# sourceMappingURL=map.kakao.js.map

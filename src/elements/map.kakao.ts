@@ -1,13 +1,13 @@
 import { LitElement, html, css } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
-type MapElementMapType = 'kakao' // | 'naver' | 'google' | 'openstreetmap'
+type MapWrapperMapType = 'kakao' // | 'naver' | 'google' | 'openstreetmap'
 
-@customElement('map-element')
-export class MapElement extends LitElement {
+@customElement('map-wrapper-kakao')
+export class MapWrapperKakao extends LitElement {
 
   @property()
-  type: MapElementMapType = 'kakao'
+  type: MapWrapperMapType = 'kakao'
 
 
   override render() {
@@ -31,6 +31,6 @@ export class MapElement extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'map-element': MapElement
+    'map-wrapper-kakao': MapWrapperKakao
   }
 }

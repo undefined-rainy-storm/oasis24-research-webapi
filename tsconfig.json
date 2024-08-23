@@ -27,7 +27,11 @@
         "strict": true
       }
     ],
-    "types": ["mocha", "kakao.maps.d.ts"]
+    "types": [
+      "mocha",
+      "kakao.maps.d.ts",
+      "@types/navermaps"
+    ]
   },
   "include": ["src/**/*.ts"],
   "exclude": []

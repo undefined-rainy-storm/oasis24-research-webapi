@@ -4,12 +4,13 @@
   <head>
     <meta charset="utf-8" />
     <title>&lt;my-element> Demo</title>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=00b619a00bcee1f2b65b81fee4fb7420&libraries=services,clusterer,drawing"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=00b619a00bcee1f2b65b81fee4fb7420"></script>
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=66uozzl6cm"></script>
 
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../node_modules/lit/polyfill-support.js"></script>
     <script type="module" src="../out/elements/my-element.js"></script>
-    <script type="module" src="../out/elements/map.polyfill.js"></script>
+    <script type="module" src="../out/elements/map.naver.js"></script>
 
     <style>
       p {
@@ -22,6 +23,10 @@
     <my-element>
       <p>This is child content</p>
     </my-element>
-    <map-wrapper></map-wrapper>
+    <map-wrapper-naver
+      lat="35.17679"
+      lng="126.90681"
+      zoom="16"
+    ></map-wrapper-naver>
   </body>
 </html>
