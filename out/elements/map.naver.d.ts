@@ -4,6 +4,11 @@ declare class MapWrapperNaver extends LitElement {
     lng: Number;
     zoom: Number;
     map: naver.maps.Map | undefined;
+    draws: {
+        [id: string]: naver.maps.Polyline;
+    };
+    drawsKeyGenerator: number;
+    htmlElement: HTMLElement | undefined;
     static get properties(): {
         lat: {
             type: NumberConstructor;
@@ -15,9 +20,10 @@ declare class MapWrapperNaver extends LitElement {
             type: NumberConstructor;
         };
     };
-    constructor(lat: Number, lng: Number, zoom: Number);
+    constructor(lat?: Number, lng?: Number, zoom?: Number);
     render: () => import("lit-html").TemplateResult<1>;
     firstUpdated: () => void;
+    addPath: (key: String | undefined, paths: Array<[Number, Number]>) => void;
 }
 declare global {
     interface HTMLElementTagNameMap {

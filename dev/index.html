@@ -11,6 +11,7 @@
     <script src="../node_modules/lit/polyfill-support.js"></script>
     <script type="module" src="../out/elements/my-element.js"></script>
     <script type="module" src="../out/elements/map.naver.js"></script>
+    <script type="module" src="../out/definitions/pathway.geometry.js"></script>
 
     <style>
       p {
@@ -28,5 +29,20 @@
       lng="126.90681"
       zoom="16"
     ></map-wrapper-naver>
+    <script type="text/javascript">
+      const pathways = {
+        '__TESTCASE1__': {
+          name: '__TESTCASE1__',
+          data: [
+            [35.1700471, 126.9126329],
+            [35.1700000, 127.0000000]
+          ]
+        },
+      }
+      window.onload = () => {
+        document.querySelector('map-wrapper-naver').addPath(pathways.__TESTCASE1__.name, pathways.__TESTCASE1__.data)
+      }
+      
+    </script>
   </body>
 </html>

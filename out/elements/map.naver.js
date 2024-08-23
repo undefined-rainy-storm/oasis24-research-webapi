@@ -5,7 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { LitElement, html } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 let MapWrapperNaver = class MapWrapperNaver extends LitElement {
     static get properties() {
         return {
@@ -14,8 +14,10 @@ let MapWrapperNaver = class MapWrapperNaver extends LitElement {
             zoom: { type: Number },
         };
     }
-    constructor(lat, lng, zoom) {
+    constructor(lat = 35.17679, lng = 126.90681, zoom = 16) {
         super();
+        this.draws = {};
+        this.drawsKeyGenerator = 0;
         this.render = () => {
             return html `
       <div
@@ -26,17 +28,53 @@ let MapWrapperNaver = class MapWrapperNaver extends LitElement {
     `;
         };
         this.firstUpdated = () => {
-            const maoBoxElement = this.shadowRoot.getElementById('map-box');
-            this.map = new naver.maps.Map(maoBoxElement, {
+            const mapBoxElement = this.shadowRoot.getElementById('map-box');
+            if (mapBoxElement)
+                this.htmlElement = mapBoxElement;
+            this.map = new naver.maps.Map(mapBoxElement, {
                 center: new naver.maps.LatLng(this.lat, this.lng),
                 zoom: this.zoom
             });
+        };
+        // Custom Methods
+        /*
+          How to use
+          const element: HTMLElement
+          element.[methodName]()
+        */
+        this.addPath = (key, paths) => {
+            if (key === undefined) {
+                key = new String(this.drawsKeyGenerator++);
+            }
+            const latLngs = [];
+            for (const each of paths) {
+                latLngs.push(new naver.maps.LatLng(each[0], each[1]));
+            }
+            if (this.map) {
+                this.draws[key] = new naver.maps.Polyline({
+                    map: this.map,
+                    path: latLngs
+                });
+                console.log(paths + 'has been added.');
+            }
+            else {
+                throw new Error('This <map-wrapper> object not constructed completly: broken map object binding');
+            }
         };
         this.lat = lat;
         this.lng = lng;
         this.zoom = zoom;
     }
 };
+__decorate([
+    state()
+], MapWrapperNaver.prototype, "lat", void 0);
+__decorate([
+    state()
+], MapWrapperNaver.prototype, "lng", void 0);
+__decorate([
+    state()
+], MapWrapperNaver.prototype, "zoom", void 0);
 MapWrapperNaver = __decorate([
     customElement('map-wrapper-naver')
 ], MapWrapperNaver);

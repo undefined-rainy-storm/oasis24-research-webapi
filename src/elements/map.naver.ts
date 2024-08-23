@@ -8,7 +8,7 @@ class MapWrapperNaver extends LitElement {
   @state() lng: Number
   @state() zoom: Number
   map: naver.maps.Map | undefined
-  draws: { [id: string]: naver.maps.Polygon } = {}
+  draws: { [id: string]: naver.maps.Polyline } = {}
   drawsKeyGenerator: number = 0
   htmlElement: HTMLElement | undefined
 
@@ -70,10 +70,10 @@ class MapWrapperNaver extends LitElement {
       latLngs.push(new naver.maps.LatLng(each[0] as number, each[1] as number))
     }
     if (this.map) {
-      this.draws[key as string] = new naver.maps.Polyline(
+      this.draws[key as string] = new naver.maps.Polyline({
         map: this.map,
         path: latLngs
-      )
+      })
     } else {
       throw new Error('This <map-wrapper> object not constructed completly: broken map object binding')
     }
