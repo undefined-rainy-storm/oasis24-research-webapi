@@ -17,6 +17,9 @@ class MapWrapperNaver extends LitElement {
   draws: { [id: string]: naver.maps.Polyline } = {}
   drawsKeyGenerator: number = 0
   htmlElement: HTMLElement | undefined
+  
+  keyPolylineNavigating = 'polylineNavigating'
+  keyPolylineMovingTraced = 'polylineMovingTraced'
 
   static override get properties() {
     return {
@@ -51,6 +54,9 @@ class MapWrapperNaver extends LitElement {
     const mapBoxElement = this.shadowRoot!.getElementById('map-box')
     if (mapBoxElement) this.htmlElement = mapBoxElement
 
+    this.setPath(this.keyPolylineMovingTraced, [])
+    this.setPath(this.keyPolylineNavigating, [])
+
     this.map = new naver.maps.Map(mapBoxElement!, {
       center: new naver.maps.LatLng(this.lat as number, this.lng as number),
       zoom: this.zoom as number
@@ -69,7 +75,7 @@ class MapWrapperNaver extends LitElement {
     element.[methodName]()
   */
 
-  addPath = (
+  setPath = (
     key: String | undefined,
     paths: Array<[Number, Number]>
   ) => {
@@ -88,6 +94,25 @@ class MapWrapperNaver extends LitElement {
     } else {
       throw new Error('This <map-wrapper> object not constructed completly: broken map object binding')
     }
+  }
+  addPath = (
+    key: String,
+    paths: [Number, Number]
+  ) => {
+    if (!(key as string in this.draws)) {
+      throw new Error(`key ${key} not in this.draws`)
+    }
+    const draw: naver.maps.Polyline = this.draws[key as string]
+    const kvoArray = draw.getPath()
+    kvoArray.push(new naver.maps.LatLng(paths[0] as number, paths[1] as number))
+    draw.setPath(kvoArray)
+  }
+
+  setPolylineNavigating = (path: Array<[Number, Number]>) => {
+    this.setPath(this.keyPolylineNavigating, path)
+  }
+  setPolylineMovingTraced = (path: Array<[Number, Number]>) => {
+    this.setPath(this.keyPolylineMovingTraced, path)
   }
 }
 
